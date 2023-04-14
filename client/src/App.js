@@ -5,12 +5,13 @@ import Write from "./Components/Write/Write";
 import Setting from "./Pages/Setting/Setting";
 import Login from "./Pages/Login/login";
 import Register from "./Pages/register/Register";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   const user = false;
   return (
     <>
-      <TopBar />
       <BrowserRouter>
+        <TopBar />
         <Routes>
           <Route exact path="/" element={<Home />} />
 
