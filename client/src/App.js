@@ -8,23 +8,24 @@ import Register from "./Pages/register/Register";
 function App() {
   const user = false;
   return (
-    <Router>
+    <>
       <TopBar />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/login"> {user ? <Home /> : <Login />}</Route>
-        <Route path="/register"> {user ? <Home /> : <Register />}</Route>
-        <Route path="/write"> {user ? <Write /> : <Register />}</Route>
-        <Route path="/setting"> {user ? <Setting /> : <Register />}</Route>
-        <Route path="/post/:postId">
-          {" "}
-          <Single />
-        </Route>
-      </Switch>
-      <Register />
-    </Router>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+
+          <Route path="/login" element={user ? <Home /> : <Login />} />
+
+          <Route path="/register" element={user ? <Home /> : <Register />} />
+
+          <Route path="/write" element={user ? <Write /> : <Register />} />
+
+          <Route path="/setting" element={user ? <Setting /> : <Register />} />
+
+          <Route path="/post/:postId" element={<Single />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
