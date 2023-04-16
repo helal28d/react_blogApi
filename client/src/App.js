@@ -7,7 +7,7 @@ import Login from "./Pages/Login/login";
 import Register from "./Pages/register/Register";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
-  const user = false;
+  const user = true;
   return (
     <>
       <BrowserRouter>
