@@ -1,37 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./SinglePost.css";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { Link } from "react-router-dom";
 export default function SinglePost() {
+  const location = useLocation();
+  const path = location.pathname.split("/")[2];
+  const [post, setPost] = useState({});
+  useEffect(() => {
+    const getPost = async () => {
+      const res = await axios.get("/posts/" + path);
+      setPost(res.data);
+    };
+    getPost();
+  }, [path]);
   return (
     <div className="singlePost">
       <div className="wrapper">
-        <img src="./img/post.jpg" alt="" className="singImg" />
-        <h1 className="singPostTitle">Lorem ipsum dolor, sit amet </h1>
+        {post.photo && <img src={post.photo} alt="" className="singImg" />}
+
+        <h1 className="singPostTitle">{post.title}</h1>
         <div className="singPostEdit">
           <i className="singlePostIcon far fa-edit"></i>
           <i className="singlePostIcon fas fa-trash-alt"></i>
         </div>
         <div className="singlePostInfo">
           <span className="singlepostAuth">
-            Author :<b>Helal</b>
+            Author :
+            <Link to={`/?user=${post.username}`} className="link">
+              <b>{post.username}</b>
+            </Link>
           </span>
-          <span className="singlepostDate"> 1 hour ago</span>
+          <span className="singlepostDate">
+            {new Date(post.createdAt).toDateString()}
+          </span>
         </div>
-        <p className="singlePostDesc">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos
-          laboriosam, pariatur quos, modi minus beatae explicabo necessitatibus
-          alias neque commodi asperiores incidunt impedit quod voluptatem magnam
-          cum culpa natus at? Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Dignissimos laboriosam, pariatur quos, modi minus beatae
-          explicabo necessitatibus alias neque commodi asperiores incidunt
-          impedit quod voluptatem magnam cum culpa natus at?Lorem ipsum dolor
-          sit amet consectetur adipisicing elit. Dignissimos laboriosam,
-          pariatur quos, modi minus beatae explicabo necessitatibus alias neque
-          commodi asperiores incidunt impedit quod voluptatem magnam cum culpa
-          natus at?Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Dignissimos laboriosam, pariatur quos, modi minus beatae explicabo
-          necessitatibus alias neque commodi asperiores incidunt impedit quod
-          voluptatem magnam cum culpa natus at?
-        </p>
+        <p className="singlePostDesc">{post.desc}</p>
       </div>
     </div>
   );

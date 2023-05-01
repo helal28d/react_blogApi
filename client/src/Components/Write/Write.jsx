@@ -3,7 +3,7 @@ import "./Write.css";
 export default function Write() {
   return (
     <div className="write">
-      <img src="./img/post.jpg" className="writeImg" />
+      <img alt="" src="./img/post.jpg" className="writeImg" />
       <form className="writeForm ">
         <div className="writeFormGrouop">
           <label htmlFor="fileInput">

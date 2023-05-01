@@ -3,11 +3,11 @@ import TopBar from "./Components/topBar/TopBar";
 import Single from "./Pages/Single/Single";
 import Write from "./Components/Write/Write";
 import Setting from "./Pages/Setting/Setting";
-import Login from "./Pages/Login/login";
+import Login from "./Pages/Login/Login";
 import Register from "./Pages/register/Register";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
-  const user = true;
+  const user = false;
   return (
     <>
       <BrowserRouter>

@@ -70,7 +70,7 @@ router.get("/:id", async (req, res) => {
 //get all posts  /by author and by category
 
 router.get("/", async (req, res) => {
-  const userName = req.post.user;
+  const userName = req.body.user;
   const catName = req.body.cat;
   try {
     let posts;
