@@ -39,6 +39,9 @@ border: none;
     padding: 10px;
 
 }
+.loginBtn:disabled{
+    cursor: not-allowed;
+}
 .LoginRegisterBtn{
     position: absolute;
     top: 70px;

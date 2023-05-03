@@ -35,6 +35,7 @@
     border-radius: 50%;
     object-fit: cover;
     /* margin: 5px; */
+    cursor: pointer;
 }
 .topList{
     display: flex;
