@@ -4,8 +4,8 @@ const Post = require("../models/Post");
 const bcrypt = require("bcrypt"); //when user update pass
 
 //update
-router.put("/:id", async (req, res) => {
-  if (req.body.Id === req.params.id) {
+router.put("/:userId", async (req, res) => {
+  if (req.body.userId === req.params.userId) {
     if (req.body.password) {
       //if user update pass we need encrypt it again
       const salt = await bcrypt.genSalt(10);
@@ -13,7 +13,7 @@ router.put("/:id", async (req, res) => {
     }
     try {
       const updatedUser = await User.findByIdAndUpdate(
-        req.params.id,
+        req.params.userId,
         {
           $set: req.body,
         },

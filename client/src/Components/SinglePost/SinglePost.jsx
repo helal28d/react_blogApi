@@ -30,7 +30,9 @@ export default function SinglePost() {
         data: { username: user.username },
       });
       window.location.replace("/");
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handelUpdate = async () => {
     try {

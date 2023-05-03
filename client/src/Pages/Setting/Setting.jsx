@@ -6,9 +6,9 @@ import axios from "axios";
 export default function Setting() {
   const { user, dispatch } = useContext(Context);
   const [file, setFile] = useState(null);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState(user.username);
+  const [email, setEmail] = useState(user.email);
+  const [password, setPassword] = useState(user.password);
   const [success, setSuccess] = useState(false);
   const PF = "http://localhost:5000/images/";
   const handleSubmit = async (e) => {
@@ -20,21 +20,31 @@ export default function Setting() {
       email,
       password,
     };
+
     if (file) {
-      const data = new FormData();
-      const fileName = Date.now() + file.name;
-      data.append("name", fileName);
-      data.append("file", file);
-      updatedUser.profilePic = fileName;
+      const formData = new FormData();
+      formData.append("image", file);
+
       try {
-        await axios.post("/upload", data);
-      } catch (error) {}
+        await axios
+          .post("/upload", formData)
+          .then((response) => {
+            updatedUser.profilePic = response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } catch (error) {
+        console.log(error);
+      }
     }
     try {
       const res = await axios.put("/users/" + user._id, updatedUser);
+
       setSuccess(true);
       dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
     } catch (error) {
+      console.log(error);
       dispatch({ type: "UPDATE_FAILURE" });
     }
   };
@@ -47,7 +57,7 @@ export default function Setting() {
         </div>
         <form className="setForm" on onSubmit={handleSubmit}>
           <label htmlFor="">Profile Picture</label>
-          <div className="setProP          vv        ic">
+          <div className="setProPic">
             <img
               src={file ? URL.createObjectURL(file) : PF + user.profilePic}
               alt=""

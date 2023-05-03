@@ -18,6 +18,7 @@ export default function Login() {
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE" });
+      console.log("Faild to login");
     }
   };
   return (

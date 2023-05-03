@@ -15,27 +15,32 @@ export default function Write() {
       desc,
     };
     if (file) {
-      const data = new FormData();
-      const fileName = Date.now() + file.name;
-      data.append("name", fileName);
-      data.append("file", file);
-      newPost.photo = fileName;
+      const formData = new FormData();
+      formData.append("image", file);
+      console.log(file.name);
+
       try {
-        await axios.post("http://localhost:5000/api/upload", data);
-        console.log("upload img success");
+        await axios
+          .post("/upload", formData)
+          .then((response) => {
+            console.log(response);
+            newPost.photo = response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } catch (error) {
         console.log(error);
-        console.log("upload img error");
       }
     }
-    // try {
-    //   const res = await axios.post("/posts", newPost);
-    //   console.log("post created success");
+    try {
+      const res = await axios.post("/posts", newPost);
+      console.log("post created success");
 
-    //   window.location.replace("/post/" + res.data._id); //go to the new post
-    // } catch (error) {
-    //   console.log(error);
-    // }
+      window.location.replace("/post/" + res.data._id); //go to the new post
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

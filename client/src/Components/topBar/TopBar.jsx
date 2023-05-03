@@ -7,6 +7,7 @@ export default function TopBar() {
   const PF = "http://localhost:5000/images/";
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
+    window.location.replace("/");
   };
   return (
     <>
@@ -39,14 +40,13 @@ export default function TopBar() {
               </Link>
             </li>
             <li className="topListItem" onClick={handleLogout}>
-              {" "}
               {user && "LOGOUT"}
             </li>
           </ul>
         </div>
         <div className="topRight">
           {user ? (
-            <Link to="/setting">
+            <Link to={`/setting/${user._id}`}>
               <img className="topImg" src={PF + user.profilePic} alt="" />
             </Link>
           ) : (

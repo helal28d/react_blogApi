@@ -25,22 +25,19 @@ mongoose
   })
   .then(console.log("mongodb online  connected"))
   .catch((err) => console.log(err));
-// app.use("/", (req, res) => {
-//   console.log("main url");
-// });
 
-//upload images into images folder
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "images");
+  destination: function (req, file, cb) {
+    cb(null, "images/");
   },
-  filename: (req, file, cb) => {
-    cb(null, req.body.name); //from client
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
   },
 });
 const upload = multer({ storage: storage });
-app.post("/api/uplaod", upload.single("file"), (req, res) => {
-  res.status(200).json("file uploaded");
+app.post("/api/upload", upload.single("image"), (req, res) => {
+  console.log(req.file.filename);
+  res.send(req.file.filename); //to save img name when update user setting
 });
 app.use("/api/auth", authRoute); //use routing or we can add /api/auth
 app.use("/api/users", userRoute);
