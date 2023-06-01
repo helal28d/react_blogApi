@@ -20,8 +20,8 @@ app.use(cors());
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
-
-    useUnifiedTopology: true,
+    // ssl: true,
+    // useUnifiedTopology: true,
   })
   .then(console.log("mongodb online  connected"))
   .catch((err) => console.log(err));
