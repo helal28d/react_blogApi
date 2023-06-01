@@ -21,7 +21,7 @@ mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     // ssl: true,
-    // useUnifiedTopology: true,
+    useUnifiedTopology: true,
   })
   .then(console.log("mongodb online  connected"))
   .catch((err) => console.log(err));
