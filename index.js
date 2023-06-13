@@ -17,14 +17,26 @@ app.use("/images", express.static(path.join(__dirname, "/images")));
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
-mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    // ssl: true,
-    useUnifiedTopology: true,
-  })
-  .then(console.log("mongodb online  connected"))
-  .catch((err) => console.log(err));
+const PORT = process.env.PORT || 5000;
+
+mongoose.set("strictQuery", false);
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URL);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+};
+// mongoose
+//   .connect(process.env.MONGO_URL, {
+//     useNewUrlParser: true,
+//     // ssl: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(console.log("mongodb online  connected"))
+//   .catch((err) => console.log(err));
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -43,6 +55,11 @@ app.use("/api/auth", authRoute); //use routing or we can add /api/auth
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/categories", categoryRoute);
-app.listen(5000, () => {
-  console.log("backend connected");
+// app.listen(5000, () => {
+//   console.log("backend connected");
+// });
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log("listening for requests");
+  });
 });
