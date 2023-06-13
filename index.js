@@ -51,6 +51,10 @@ app.post("/api/upload", upload.single("image"), (req, res) => {
   console.log(req.file.filename);
   res.send(req.file.filename); //to save img name when update user setting
 });
+
+app.get("/", (req, res) => {
+  res.send({ title: "home" });
+});
 app.use("/api/auth", authRoute); //use routing or we can add /api/auth
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
