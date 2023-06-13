@@ -47,7 +47,7 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
-app.post("/api/upload", upload.single("image"), (req, res) => {
+app.post("/upload", upload.single("image"), (req, res) => {
   console.log(req.file.filename);
   res.send(req.file.filename); //to save img name when update user setting
 });
