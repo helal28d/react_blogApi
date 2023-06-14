@@ -12,7 +12,7 @@ const multer = require("multer");
 const path = require("path");
 
 app.use(express.json());
-app.use("/images", express.static(path.join(__dirname, "/images")));
+app.use("/api/images", express.static(path.join(__dirname, "/api/images")));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
@@ -40,7 +40,7 @@ const connectDB = async () => {
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "api/images/");
+    cb(null, "/api/images/");
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + "-" + file.originalname);
