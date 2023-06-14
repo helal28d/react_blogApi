@@ -40,7 +40,7 @@ const connectDB = async () => {
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "/images/");
+    cb(null, "api/images/");
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + "-" + file.originalname);
