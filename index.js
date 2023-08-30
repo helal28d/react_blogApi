@@ -15,9 +15,21 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: false }));
 
-const cors = require("cors");
-
-app.use(cors());
+const whitelist = [
+  "http://localhost:3000",
+  "https://react-blog-seven-ecru.vercel.app/",
+];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+app.use(cors(corsOptions));
 const PORT = process.env.PORT || 5000;
 
 mongoose.set("strictQuery", false);
